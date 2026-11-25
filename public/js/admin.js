@@ -91,7 +91,7 @@
 
   function notify(order) {
     const banner = $('new-order-banner');
-    banner.textContent = `🔔 Nueva orden #${order.order_number}`;
+    banner.textContent = `Nueva orden #${order.order_number}`;
     banner.hidden = false;
     clearTimeout(bannerTimer);
     bannerTimer = setTimeout(() => { banner.hidden = true; }, 4000);

@@ -113,6 +113,7 @@ router.get('/:id/qr', async (req, res, next) => {
     });
     const png = await QRCode.toBuffer(payload, {
       type: 'png', width: 512, margin: 2, errorCorrectionLevel: 'M',
+      color: { dark: '#2A1F1A', light: '#EAE3D6' },
     });
     res.type('png').send(png);
   } catch (err) {

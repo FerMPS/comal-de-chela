@@ -41,13 +41,26 @@ db.exec(`
   CREATE INDEX IF NOT EXISTS idx_order_items_order ON order_items(order_id);
 `);
 
+const productImages = new Map([
+  ['Pupusa de Queso', '/images/pupusa-queso.png'],
+  ['Pupusa de Frijol con Queso', '/images/pupusa-frijol-queso.png'],
+  ['Pupusa Revuelta', '/images/pupusa-revuelta.png'],
+  ['Pupusa de Loroco con Queso', '/images/pupusa-loroco.png'],
+  ['Pupusa de Chicharrón', '/images/pupusa-chicharron.png'],
+  ['Pupusa de Jalapeño con Queso', '/images/pupusa-jalapeno.png'],
+  ['Horchata', '/images/bebida-horchata.png'],
+  ['Ensalada', '/images/bebida-ensalada.png'],
+  ['Refresco', '/images/bebida-refresco.png'],
+  ['Agua', '/images/bebida-agua.png'],
+]);
+
 const seed = db.transaction(() => {
   if (db.prepare('SELECT COUNT(*) AS n FROM products').get().n > 0) return;
 
   const insert = db.prepare(
-    'INSERT INTO products (name, category, price, description, available) VALUES (?, ?, ?, ?, 1)'
+    'INSERT INTO products (name, category, price, description, image, available) VALUES (?, ?, ?, ?, ?, 1)'
   );
-  for (const p of [
+  for (const [name, category, price, description] of [
     ['Pupusa de Queso', 'pupusa', 1.0, 'Queso de leche derretido'],
     ['Pupusa de Frijol con Queso', 'pupusa', 1.0, 'Frijol refrito con queso'],
     ['Pupusa Revuelta', 'pupusa', 1.25, 'Frijol, queso y chicharrón'],
@@ -59,10 +72,19 @@ const seed = db.transaction(() => {
     ['Refresco', 'bebida', 1.0, 'Refresco embotellado'],
     ['Agua', 'bebida', 0.75, 'Botella de agua'],
   ]) {
-    insert.run(...p);
+    insert.run(name, category, price, description, productImages.get(name));
   }
 });
 
+// Repara las rutas de imagen de una BD ya existente sin tocar precios ni órdenes.
+const syncImages = db.transaction(() => {
+  const update = db.prepare(
+    'UPDATE products SET image = ? WHERE name = ? AND (image IS NULL OR image = ? OR image <> ?)'
+  );
+  for (const [name, image] of productImages) update.run(image, name, image, image);
+});
+
 seed();
+syncImages();
 
 module.exports = db;

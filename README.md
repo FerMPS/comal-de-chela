@@ -15,7 +15,11 @@ npm start
 - Panel del puesto: http://localhost:3000/admin
 - Desde el celular, en la misma WiFi, usa la IP que imprime el servidor (por ejemplo `http://192.168.1.10:3000/`).
 
-La base SQLite se crea sola en `database/comal.db` con los 10 productos de ejemplo. No hay migraciones ni pasos extra.
+La base SQLite se crea sola en `database/comal.db` con los 10 productos de ejemplo. Al arrancar, `database/db.js` repara las rutas de imagen de los productos ya existentes sin tocar precios ni órdenes.
+
+## Fotos del menú
+
+Las imágenes base son PNG reales en `public/images/` (`pupusa-queso.png`, `bebida-horchata.png`, etc.). Para poner tus fotografías, sobrescribe esos mismos archivos PNG con las fotos finales, conservando el nombre. No hay que tocar código ni la base de datos: Express ya sirve esa carpeta y la interfaz carga las rutas guardadas en la BD.
 
 ## Probar
 

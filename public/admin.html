@@ -3,19 +3,22 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#8B4513">
+  <meta name="theme-color" content="#EAE3D6">
   <title>Comal de Chela · Panel del puesto</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body class="admin-page">
   <header class="site-header">
     <div class="brand">
-      <span class="brand-mark" aria-hidden="true">🔥</span>
+      <span class="brand-mark" aria-hidden="true">CC</span>
       <span class="brand-text"><strong>Comal de Chela</strong><small>Panel del puesto</small></span>
     </div>
-    <div style="display:flex;align-items:center;gap:10px">
+    <div class="header-actions">
       <span id="conn" class="conn-badge offline">Conectando…</span>
-      <a class="header-link" href="/">Menú →</a>
+      <a class="header-link" href="/">Menú</a>
     </div>
   </header>
 
@@ -27,7 +30,7 @@
         <div id="reader"></div>
         <div class="scanner-actions">
           <button id="start-scan" class="primary-button" type="button">Activar cámara</button>
-          <button id="stop-scan" class="secondary-button danger" type="button" disabled>Detener</button>
+          <button id="stop-scan" class="secondary-button" type="button" disabled>Detener</button>
         </div>
         <form id="manual-form" class="manual-form">
           <input id="manual-order" type="number" min="1" inputmode="numeric" placeholder="N.º de orden" aria-label="Número de orden">
@@ -49,9 +52,11 @@
   </main>
 
   <div id="order-modal" class="overlay" hidden>
-    <div class="confirm-card detail-card" role="dialog" aria-modal="true" aria-labelledby="detail-number">
-      <button id="close-detail" class="icon-button" type="button" aria-label="Cerrar detalle" style="float:right">✕</button>
-      <p class="confirm-kicker">ORDEN</p>
+    <div class="confirm-card detail-card" role="dialog" aria-modal="true" aria-labelledby="detail-title">
+      <button id="close-detail" class="icon-button modal-close" type="button" aria-label="Cerrar detalle">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <h2 id="detail-title">Detalle de orden</h2>
       <div id="detail-number" class="order-number">#0</div>
       <p id="detail-status" class="status-pill status-pending"></p>
       <table class="detail-items"><tbody id="detail-items"></tbody></table>

@@ -29,7 +29,12 @@ async function main() {
 
   const products = (await api('/api/products')).body;
   assert.equal(products.length, 10, 'deben sembrarse 10 productos');
-  assert.ok(products.every((p) => p.price >= 0 && p.category));
+  assert.ok(products.every((p) => p.price >= 0 && p.category && p.image));
+  for (const product of products) {
+    const img = await fetch(base + product.image);
+    assert.equal(img.status, 200, `falta la imagen de ${product.name}`);
+    assert.match(img.headers.get('content-type'), /image\/png/);
+  }
 
   const bad = await api('/api/orders', {
     method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{"items":[]}',

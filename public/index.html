@@ -3,42 +3,39 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#FF6B35">
+  <meta name="theme-color" content="#EAE3D6">
   <meta name="description" content="Pide tus pupusas favoritas de Comal de Chela y recibe tu número por QR.">
-  <title>Comal de Chela · Pupusas a domicilio del comal</title>
+  <title>Comal de Chela · Pupusas al comal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body class="client-page">
   <header class="site-header">
     <div class="brand">
-      <span class="brand-mark" aria-hidden="true">🌮</span>
+      <span class="brand-mark" aria-hidden="true">CC</span>
       <span class="brand-text">
         <strong>Comal de Chela</strong>
-        <small>El sabor de siempre, al comal</small>
+        <small>Pupusas al comal</small>
       </span>
     </div>
-    <a class="header-link" href="/admin" title="Panel del puesto">Puesto →</a>
+    <a class="header-link" href="/admin">Puesto</a>
   </header>
 
   <main>
     <section class="hero">
-      <span class="hero-kicker">HECHAS AL MOMENTO</span>
-      <h1>Tu pupusa, <em>sin fila.</em></h1>
+      <h1>Tu pupusa, sin fila.</h1>
       <p>Elige tus favoritas, confirma tu pedido y muestra tu QR en el puesto.</p>
-      <div class="hero-badges" aria-hidden="true">
-        <span>🔥 Comal caliente</span><span>🥤 Bebidas frías</span><span>⚡ Listo en minutos</span>
-      </div>
     </section>
 
     <section id="menu" class="menu" aria-label="Menú de productos" aria-busy="true">
-      <div class="skeleton-card"></div><div class="skeleton-card"></div>
-      <div class="skeleton-card"></div><div class="skeleton-card"></div>
+      <p class="menu-loading">Cargando menú…</p>
     </section>
   </main>
 
   <button id="cart-fab" class="cart-fab" type="button" aria-label="Ver mi pedido" aria-expanded="false">
-    <span class="fab-icon" aria-hidden="true">🛍️</span>
-    <span class="fab-text">Ver mi pedido</span>
+    <span class="fab-text">Ver pedido</span>
     <span id="fab-count" class="fab-count">0</span>
     <strong id="fab-total">$0.00</strong>
   </button>
@@ -47,22 +44,29 @@
 
   <aside id="cart" class="cart" aria-label="Tu pedido" aria-hidden="true">
     <div class="cart-head">
-      <div><h2>Tu pedido</h2><p>Revisa y confirma antes de enviar</p></div>
-      <button id="close-cart" class="icon-button" type="button" aria-label="Cerrar carrito">✕</button>
+      <div>
+        <h2>Tu pedido</h2>
+        <p>Revisa y confirma antes de enviar</p>
+      </div>
+      <button id="close-cart" class="icon-button" type="button" aria-label="Cerrar carrito">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
     </div>
     <div id="cart-items" class="cart-items"></div>
     <div class="cart-foot">
       <div class="total-row"><span>Total</span><strong id="cart-total">$0.00</strong></div>
       <button id="checkout" class="primary-button" type="button" disabled>Realizar pedido</button>
-      <p class="cart-note">Al confirmar recibirás un número y un QR para mostrar en el puesto.</p>
+      <p class="cart-note">Recibirás un número y un QR para mostrar en el puesto.</p>
     </div>
   </aside>
 
   <div id="confirmation" class="overlay" hidden>
     <div class="confirm-card" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
-      <div class="confirm-icon" aria-hidden="true">✓</div>
-      <p class="confirm-kicker">¡PEDIDO CONFIRMADO!</p>
-      <h2 id="confirm-title">Tu número de orden</h2>
+      <div class="confirm-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg>
+      </div>
+      <h2 id="confirm-title">Pedido confirmado</h2>
+      <p class="confirm-label">Tu número de orden</p>
       <div id="order-number" class="order-number">#0</div>
       <p id="order-status" class="status-pill status-pending" aria-live="polite">Esperando en el puesto</p>
       <div class="qr-frame">
@@ -71,7 +75,7 @@
       </div>
       <p class="qr-help">Muestra este código al llegar al puesto</p>
       <button id="new-order" class="primary-button" type="button">Hacer otro pedido</button>
-      <p class="confirm-note">Guarda tu número: cuando esté lista, te llamarán por él.</p>
+      <p class="confirm-note">Guarda tu número: cuando esté listo, te llamarán por él.</p>
     </div>
   </div>
 

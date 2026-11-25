@@ -48,26 +48,32 @@
     }
   }
 
+  const plusIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>';
+
   function renderMenu() {
     const groups = [
-      { key: 'pupusa', icon: '🫓', title: 'Pupusas', sub: 'Calientes al comal, listas para ti' },
-      { key: 'bebida', icon: '🥤', title: 'Bebidas', sub: 'Para acompañar tu pedido' },
+      { key: 'pupusa', title: 'Pupusas', sub: 'Calientes al comal, listas para ti' },
+      { key: 'bebida', title: 'Bebidas', sub: 'Para acompañar tu pedido' },
     ];
     $('menu').innerHTML = groups.map((group) => {
       const cards = products.filter((p) => p.category === group.key).map((p) => `
         <article class="product-card">
-          <div class="product-emoji" aria-hidden="true">${group.key === 'pupusa' ? '🫓' : '🥤'}</div>
-          <div class="product-info">
-            <div class="product-name">${esc(p.name)}</div>
-            <div class="product-desc">${esc(p.description || '')}</div>
-            <div class="product-price">${money(p.price)}</div>
+          <img class="product-image" src="${esc(p.image || '')}" alt="${esc(p.name)}" loading="lazy">
+          <div class="product-body">
+            <div class="product-top">
+              <div class="product-name">${esc(p.name)}</div>
+              <div class="product-price">${money(p.price)}</div>
+            </div>
+            <p class="product-desc">${esc(p.description || '')}</p>
+            <button class="primary-button add-button" type="button" data-add="${p.id}" aria-label="Agregar ${esc(p.name)}">
+              ${plusIcon}<span>Agregar</span>
+            </button>
           </div>
-          <button class="add-button" type="button" data-add="${p.id}" aria-label="Agregar ${esc(p.name)}">+</button>
         </article>`).join('');
       return `<section>
         <div class="category-head">
-          <span class="category-icon" aria-hidden="true">${group.icon}</span>
-          <div><h2>${group.title}</h2><p>${group.sub}</p></div>
+          <h2>${group.title}</h2>
+          <p>${group.sub}</p>
         </div>
         <div class="product-grid">${cards}</div>
       </section>`;
@@ -103,8 +109,10 @@
           <span>${line.qty}</span>
           <button type="button" data-inc="${line.id}" aria-label="Agregar uno">+</button>
         </div>
-        <button class="icon-button" type="button" data-remove="${line.id}" aria-label="Eliminar ${esc(line.name)}" style="justify-self:end;width:36px;height:36px">✕</button>
-      </div>`).join('') : '<div class="cart-empty"><span>🛍️</span>Tu pedido está vacío.<br>Agrega algo delicioso del menú.</div>';
+        <button class="icon-button" type="button" data-remove="${line.id}" aria-label="Eliminar ${esc(line.name)}">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>`).join('') : '<div class="cart-empty">Tu pedido está vacío. Agrega algo delicioso del menú.</div>';
   }
 
   function setQty(id, delta) {
@@ -236,7 +244,7 @@
   });
 
   if (socket) {
-    socket.on('order-created', () => toast('Tu orden ya está en el puesto 🔥'));
+    socket.on('order-created', () => toast('Tu orden ya está en el puesto'));
     socket.on('order-updated', (update) => {
       if (currentOrder && update && update.id === currentOrder.id) showStatus(update.status);
     });
