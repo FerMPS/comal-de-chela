@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#8B4513">
+  <title>Comal de Chela · Panel del puesto</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body class="admin-page">
+  <header class="site-header">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">🔥</span>
+      <span class="brand-text"><strong>Comal de Chela</strong><small>Panel del puesto</small></span>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px">
+      <span id="conn" class="conn-badge offline">Conectando…</span>
+      <a class="header-link" href="/">Menú →</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="admin-layout">
+      <section class="scanner-panel card" aria-label="Escáner de QR">
+        <h2>Escanear orden</h2>
+        <p class="card-sub">Apunta la cámara al QR del cliente</p>
+        <div id="reader"></div>
+        <div class="scanner-actions">
+          <button id="start-scan" class="primary-button" type="button">Activar cámara</button>
+          <button id="stop-scan" class="secondary-button danger" type="button" disabled>Detener</button>
+        </div>
+        <form id="manual-form" class="manual-form">
+          <input id="manual-order" type="number" min="1" inputmode="numeric" placeholder="N.º de orden" aria-label="Número de orden">
+          <button class="secondary-button" type="submit">Buscar</button>
+        </form>
+        <p id="scan-status" class="scan-status" role="status">Si la cámara no funciona, escribe el número de orden.</p>
+      </section>
+
+      <section aria-label="Órdenes">
+        <div class="section-head"><h2>Órdenes activas</h2><span id="active-count" class="count-pill">0</span></div>
+        <div id="active-orders" class="order-grid"></div>
+
+        <details class="history" id="history">
+          <summary>Historial (<span id="history-count">0</span>)</summary>
+          <div id="history-orders" class="order-grid"></div>
+        </details>
+      </section>
+    </div>
+  </main>
+
+  <div id="order-modal" class="overlay" hidden>
+    <div class="confirm-card detail-card" role="dialog" aria-modal="true" aria-labelledby="detail-number">
+      <button id="close-detail" class="icon-button" type="button" aria-label="Cerrar detalle" style="float:right">✕</button>
+      <p class="confirm-kicker">ORDEN</p>
+      <div id="detail-number" class="order-number">#0</div>
+      <p id="detail-status" class="status-pill status-pending"></p>
+      <table class="detail-items"><tbody id="detail-items"></tbody></table>
+      <div class="detail-total"><span>Total</span><span id="detail-total">$0.00</span></div>
+      <div id="detail-actions" class="status-actions"></div>
+    </div>
+  </div>
+
+  <div id="new-order-banner" class="new-order-banner" hidden role="status"></div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/vendor/html5-qrcode.min.js"></script>
+  <script src="/js/admin.js"></script>
+</body>
+</html>

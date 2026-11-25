@@ -1,0 +1,21 @@
+{
+  "name": "comal-de-chela",
+  "version": "1.0.0",
+  "private": true,
+  "engines": { "node": ">=22" },
+  "description": "Sistema de pedidos por QR para el puesto de pupusas Comal de Chela",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node test/smoke.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^13.2.0",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "html5-qrcode": "^2.3.8",
+    "qrcode": "^1.5.4",
+    "socket.io": "^4.8.1"
+  }
+}
